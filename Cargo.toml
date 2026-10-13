@@ -1,0 +1,22 @@
+[package]
+name = "gitmsg"
+version = "0.1.0"
+edition = "2021"
+description = "Draft a commit title for the staged diff and type it into the terminal"
+license = "MIT"
+
+[[bin]]
+name = "gitmsg"
+path = "src/main.rs"
+
+[dependencies]
+libc = "0.2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+time = { version = "0.3", features = ["formatting", "parsing"] }
+ureq = { version = "2.12", default-features = false, features = ["json", "tls"] }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true
