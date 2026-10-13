@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/readme/hero.svg" width="100%" alt="gitmsg reads a staged greeting and farewell, spins Generating on one line, then types git c -m &quot;Adds farewell &amp; updates the greeting&quot; onto the prompt and waits. Nothing is committed.">
+<img src="assets/readme/hero.svg" width="100%" alt="gitmsg reads a staged greeting and farewell, spins Generating on one line, then types git commit -m &quot;Adds farewell &amp; updates the greeting&quot; onto the prompt and waits. Nothing is committed.">
 
 # gitmsg
 
@@ -19,12 +19,7 @@ One subject for whatever is staged, from your own Grok login. No body. No commit
 
 </div>
 
-```diff
-- git commit -m "update stuff"
-+ git c -m "Adds farewell & updates the greeting"
-```
-
-`gitmsg` reads what you have staged, asks Grok for a single commit title, and puts `git c -m "<title>"` on the command line. It does not run it. The title starts with a verb, prefers `&` over "and", aims for 50 characters, and stops at 72. Built for [Omarchy](https://omarchy.org) (or whatever sub-optimal unix-like system you're running) and for a shell where `git c` already means `git commit`.
+`gitmsg` reads what you have staged, asks Grok for a single commit title, and puts `git commit -m "<title>"` on the command line. It does not run it.
 
 <img src="assets/readme/divider.svg" width="100%" alt="">
 
@@ -33,12 +28,6 @@ One subject for whatever is staged, from your own Grok login. No body. No commit
 ```sh
 curl -fsSL https://raw.githubusercontent.com/uxeric/gitmsg/HEAD/install.sh | bash
 ```
-
-It builds `gitmsg` from source into `~/.local/bin`, no root needed, and offers to install Rust if you don't have it. On zsh it loads a small function so the line lands on the prompt with `print -z` and is not executed. Open a new terminal after installing.
-
-`gitmsg` checks for a newer version before it drafts a title. Enter installs it and continues. n keeps this version. `gitmsg --update` updates by hand and `gitmsg --version` shows what you have. Run the install line again to update the same way.
-
-From a checkout, `./install.sh` builds that checkout. `./install.sh --uninstall` removes the binary and the zsh block this installer added. Your Grok login stays where it is.
 
 <img src="assets/readme/divider.svg" width="100%" alt="">
 
@@ -54,43 +43,12 @@ gitmsg
 A single line spins `Generating` while the title is written. When it finishes, the prompt is holding something like:
 
 ```sh
-git c -m "Adds farewell & updates the greeting"
+git commit -m "Adds farewell & updates the greeting"
 ```
-
-Read it. Edit it if you want. Press Enter to commit. Ctrl-C, closing the terminal, or just not pressing Enter commits nothing.
-
-| | |
-|---|---|
-| Shape | A verb first. Adds, Updates, Fixes, Removes, Refactors, and the rest when they fit. |
-| Reader | A manager can follow it. A developer term stays when a softer phrase would hide the change. |
-| Length | About 50 characters. 72 is the hard stop. No trailing period. |
-| And | `&`, so the line stays short. |
-| Body | None. The title is the whole message. |
-
-`c` means commit in this shell. If yours does not do that, change `c` to `commit` before you press Enter, or teach it:
-
-```sh
-git() {
-  if [[ $1 == c ]]; then
-    shift
-    command git commit "$@"
-  else
-    command git "$@"
-  fi
-}
-```
-
-| How you run it | What happens |
-|---|---|
-| `gitmsg` in zsh, after install | The line is placed on the prompt. Nothing runs. |
-| `gitmsg` with no zsh function, on Hyprland, in a focused terminal, with `wtype` | The same line is typed after the prompt returns. If focus leaves, it is printed instead. |
-| `gitmsg --print` | The line is printed. Nothing is typed. |
 
 <img src="assets/readme/divider.svg" width="100%" alt="">
 
 ## Keys
-
-This repository does not contain a key. There is no API key, client secret, or token in the source, the tests, or the binary. Do not add one to make it work. `gitmsg` uses the login you create yourself.
 
 1. Install the Grok CLI if `grok` is not already on your PATH:
 
@@ -131,14 +89,6 @@ An `XAI_API_KEY` in the environment is not read. The login file is the only cred
 > [!IMPORTANT]
 > **Where do I put the key?**<br>
 > You don't put it in the project. Run `grok login`. The session stays in `~/.grok/auth.json`, which is not part of this repo.
-
-> [!WARNING]
-> **Can I paste my auth file into the code?**<br>
-> No. The tests use stand-in tokens. A real login in the tree is a leaked login.
-
-> [!TIP]
-> **The title sounds like a developer wrote it.**<br>
-> Sometimes that's the clear version. A vaguer line that hides the change is the one it tries not to write.
 
 <div align="center">
 <br>
