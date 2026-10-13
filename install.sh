@@ -42,10 +42,15 @@ warn() { printf '  %s!%s %s\n' "$AMBER" "$RESET" "$*" >&2; }
 die() { printf '%s✗ %s%s\n' "$HOT" "$*" "$RESET" >&2; exit 1; }
 
 banner() {
+    # Six rows, seven columns a letter. Full blocks only, so the word stays
+    # GITMSG when a terminal draws box-drawing marks on the wrong half of the cell.
     printf '\n%s%s' "$HOT" "$BOLD"
-    printf '  ▄▀▀▀  ▀█▀  ▀█▀  ▄▄▄  ▄▀▀  ▄▀▀\n'
-    printf '%s  █ ▀█   █    █   █ █  ▀▀▄  █ ▀\n' "$AMBER"
-    printf '%s  ▀▀▀   ▀▀▀  ▀▀▀  ▀▀▀  ▀▀   ▀▀ %s\n\n' "$ICE" "$RESET"
+    printf '   █████   ███████  ███████  █     █   █████    █████ \n'
+    printf '  █     █     █        █     ██   ██  █     █  █     █\n'
+    printf '%s  █           █        █     █ █ █ █  █        █      \n' "$AMBER"
+    printf '  █   ███     █        █     █  █  █   █████   █   ███\n'
+    printf '%s  █     █     █        █     █     █        █  █     █\n' "$ICE"
+    printf '   █████   ███████     █     █     █   █████    █████ %s\n\n' "$RESET"
     printf '  %scommit title, typed onto the line · installer%s\n\n' "$GHOST" "$RESET"
 }
 
