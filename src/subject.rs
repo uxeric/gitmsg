@@ -1,4 +1,4 @@
-//! Commit-title cleanup and the `git c -m "..."` line.
+//! Commit-title cleanup and the `git commit -m "..."` line.
 
 pub const SOFT_LIMIT: usize = 50;
 pub const HARD_LIMIT: usize = 72;
@@ -71,7 +71,7 @@ pub fn git_commit_invocation(subject: &str) -> String {
             _ => escaped.push(ch),
         }
     }
-    format!("git c -m \"{escaped}\"")
+    format!("git commit -m \"{escaped}\"")
 }
 
 fn fold_punctuation(text: &str) -> String {
@@ -164,7 +164,7 @@ mod tests {
     fn rejects_a_lowercase_or_empty_reply() {
         assert!(clean_subject("   ").is_none());
         assert!(clean_subject("updates the form").is_none());
-        assert!(clean_subject("git c -m \"nope\"").is_none());
+        assert!(clean_subject("git commit -m \"nope\"").is_none());
     }
 
     #[test]
@@ -189,7 +189,7 @@ mod tests {
     fn quotes_shell_metacharacters_and_keeps_ampersand() {
         let subject = r#"Adds "quotes", $HOME, `ticks` & a bang!"#;
         let command = git_commit_invocation(subject);
-        assert!(command.starts_with("git c -m \""));
+        assert!(command.starts_with("git commit -m \""));
         assert!(command.contains(r#"\"quotes\""#));
         assert!(command.contains(r#"\$HOME"#));
         assert!(command.contains(r#"\`ticks\`"#));
@@ -205,7 +205,7 @@ mod tests {
         let output = std::process::Command::new("zsh")
             .args([
                 "-c",
-                "git() { print -r -- \"$3\"; }\neval \"$1\"\n",
+                "git() { [[ \"$1\" == commit && \"$2\" == -m ]] || exit 2; print -r -- \"$3\"; }\neval \"$1\"\n",
                 "zsh",
                 &command,
             ])

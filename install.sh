@@ -165,7 +165,7 @@ wire_zsh() {
     touch "$rc"
     {
         printf '\n%s\n' "$ZSH_BEGIN"
-        printf '%s\n' '# Puts `git c -m "..."` on the command line. Does not run the commit.'
+        printf '%s\n' '# Puts `git commit -m "..."` on the command line. Does not run the commit.'
         printf '[[ -f %q ]] && source %q\n' "$ZSH_FN" "$ZSH_FN"
         printf '%s\n' "$ZSH_END"
     } >> "$rc"

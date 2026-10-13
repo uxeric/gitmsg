@@ -130,7 +130,7 @@ fn print_help() {
 gitmsg — draft a commit title for what is staged and type it into the terminal
 
 Usage:
-  gitmsg            Type this on the prompt: git c -m \"<title>\"
+  gitmsg            Type this on the prompt: git commit -m \"<title>\"
   gitmsg --print    Print that command instead of typing it
   gitmsg --update   Download and install the latest version
   gitmsg --version  Show the installed version

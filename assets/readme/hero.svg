@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="920" height="488" viewBox="0 0 920 488" role="img" aria-label="gitmsg reads a staged greeting and farewell, spins Generating on one line, then types git c -m &quot;Adds farewell &amp; updates the greeting&quot; onto the prompt and waits. Nothing is committed.">
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="488" viewBox="0 0 920 488" role="img" aria-label="gitmsg reads a staged greeting and farewell, spins Generating on one line, then types git commit -m &quot;Adds farewell &amp; updates the greeting&quot; onto the prompt and waits. Nothing is committed.">
 <defs>
 <style>
 text{font-family:ui-monospace,'JetBrains Mono',SFMono-Regular,Menlo,Consolas,monospace}
@@ -62,7 +62,7 @@ text{font-family:ui-monospace,'JetBrains Mono',SFMono-Regular,Menlo,Consolas,mon
   <text x="56" y="300" font-size="20"><tspan class="ice">⠴ </tspan><tspan class="dim">Generating</tspan></text>
 </g>
 <g class="beat a7" style="animation-name:a7">
-  <text x="56" y="300" font-size="20"><tspan class="hot">❯ </tspan><tspan class="ink">git c -m "</tspan><tspan class="amber">Adds</tspan><tspan class="ink"> farewell </tspan><tspan class="ice">&amp;</tspan><tspan class="ink"> updates the greeting"</tspan><tspan class="caret hot">▍</tspan></text>
+  <text x="56" y="300" font-size="18"><tspan class="hot">❯ </tspan><tspan class="ink">git commit -m "</tspan><tspan class="amber">Adds</tspan><tspan class="ink"> farewell </tspan><tspan class="ice">&amp;</tspan><tspan class="ink"> updates the greeting"</tspan><tspan class="caret hot">▍</tspan></text>
 </g>
 <text x="56" y="430" class="dim" font-size="14">// the line waits. Enter is the only thing that commits.</text>
 </svg>
