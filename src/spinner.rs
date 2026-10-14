@@ -1,7 +1,8 @@
 //! One-line status while the commit title is written.
 //!
-//! The glyph is the braille "dots" cycle: ten frames, 80ms apart, one full
-//! turn every 0.8s. Each glyph is a single column, so "Generating" stays still.
+//! A hot chip names the line. The glyph is the braille "dots" cycle: ten
+//! frames, 80ms apart, one full turn every 0.8s. Each glyph is a single
+//! column in ice, so "Generating" stays still and quiet.
 
 use std::io::{self, Write};
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -66,7 +67,14 @@ impl Drop for Spinner {
 
 fn paint(out: &mut impl Write, frame: &str, message: &str, color: bool) -> io::Result<()> {
     if color {
-        write!(out, "\r\x1b[2K{frame} \x1b[2m{message}\x1b[0m")?;
+        write!(
+            out,
+            "\r\x1b[2K{chip} {ice}{frame}{reset} {ghost}{message}{reset}",
+            chip = crate::style::CHIP,
+            ice = crate::style::ICE,
+            ghost = crate::style::GHOST,
+            reset = crate::style::RESET,
+        )?;
     } else {
         write!(out, "\r\x1b[2K{frame} {message}")?;
     }
@@ -140,8 +148,17 @@ mod tests {
         let text = String::from_utf8(painted).unwrap();
         assert!(!text.contains('\n'), "{text:?}");
         assert!(text.starts_with("\r\x1b[2K"));
-        assert!(text.contains('⠋'));
-        assert!(text.contains("\x1b[2mGenerating\x1b[0m"));
+        let chip = text.find("gitmsg").expect("chip");
+        let frame = text.find('⠋').expect("frame");
+        let word = text.find("Generating").expect("word");
+        assert!(chip < frame && frame < word, "{text:?}");
+        assert!(text.contains("48;2;255;42;109"), "hot chip: {text}");
+        assert!(text.contains("38;2;41;240;255"), "ice signal: {text}");
+        assert!(text.contains("38;2;110;106;130"), "quiet word: {text}");
+
+        let mut plain = Vec::new();
+        paint(&mut plain, FRAMES[0], "Generating", false).unwrap();
+        assert_eq!(String::from_utf8(plain).unwrap(), "\r\x1b[2K⠋ Generating");
 
         let mut cleared = Vec::new();
         clear(&mut cleared).unwrap();

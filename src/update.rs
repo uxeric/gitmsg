@@ -58,6 +58,7 @@ pub fn offer_if_newer() -> Result<(), String> {
         &remote,
         &mut stdin.lock(),
         &mut std::io::stderr(),
+        crate::style::stderr_color(),
     ) {
         return Ok(());
     }
@@ -69,9 +70,25 @@ pub fn wants_update(
     remote: &str,
     input: &mut impl BufRead,
     mut err: impl Write,
+    color: bool,
 ) -> bool {
-    let _ = writeln!(err, "gitmsg: a new version is ready.");
-    let _ = writeln!(err, "  {installed} → {remote}");
+    if color {
+        let _ = writeln!(
+            err,
+            "{chip} a new version is ready.",
+            chip = crate::style::CHIP
+        );
+        let _ = writeln!(
+            err,
+            "  {amber}{installed}{reset} {ice}→{reset} {amber}{remote}{reset}",
+            amber = crate::style::AMBER,
+            ice = crate::style::ICE,
+            reset = crate::style::RESET,
+        );
+    } else {
+        let _ = writeln!(err, "gitmsg: a new version is ready.");
+        let _ = writeln!(err, "  {installed} → {remote}");
+    }
     let _ = writeln!(err, "Press Enter to update, or n to keep this version.");
     let mut line = String::new();
     match input.read_line(&mut line) {
@@ -190,47 +207,78 @@ mod tests {
             "abc1234",
             "def5678",
             &mut Cursor::new("\n"),
-            &mut shown
+            &mut shown,
+            false
         ));
         let text = String::from_utf8(shown).unwrap();
         assert!(text.contains("abc1234"), "{text}");
         assert!(text.contains("def5678"), "{text}");
         assert!(text.contains("Press Enter to update"), "{text}");
         assert!(text.contains("n to keep this version"), "{text}");
+        assert!(text.contains("gitmsg: a new version is ready."), "{text}");
+
+        let mut colored = Vec::new();
+        assert!(
+            !wants_update(
+                "abc1234",
+                "def5678",
+                &mut Cursor::new("n\n"),
+                &mut colored,
+                true
+            ),
+            "n still keeps this version when the prompt is colored"
+        );
+        let colored = String::from_utf8(colored).unwrap();
+        assert!(colored.contains("a new version is ready."), "{colored}");
+        assert!(colored.contains("48;2;255;42;109"), "hot chip: {colored}");
+        assert!(
+            colored.contains("38;2;246;196;69"),
+            "amber revisions: {colored}"
+        );
+        assert!(colored.contains("38;2;41;240;255"), "ice arrow: {colored}");
+        assert!(
+            !colored.contains("gitmsg:"),
+            "the chip replaces the plain prefix: {colored}"
+        );
 
         let silent = std::io::sink;
         assert!(wants_update(
             "a",
             "b",
             &mut Cursor::new("y\n"),
-            &mut silent()
+            &mut silent(),
+            false
         ));
         assert!(wants_update(
             "a",
             "b",
             &mut Cursor::new("yes\n"),
-            &mut silent()
+            &mut silent(),
+            false
         ));
         assert!(!wants_update(
             "a",
             "b",
             &mut Cursor::new("n\n"),
-            &mut silent()
+            &mut silent(),
+            false
         ));
         assert!(!wants_update(
             "a",
             "b",
             &mut Cursor::new("no\n"),
-            &mut silent()
+            &mut silent(),
+            false
         ));
         assert!(!wants_update(
             "a",
             "b",
             &mut Cursor::new("later\n"),
-            &mut silent()
+            &mut silent(),
+            false
         ));
         assert!(
-            !wants_update("a", "b", &mut Cursor::new(""), &mut silent()),
+            !wants_update("a", "b", &mut Cursor::new(""), &mut silent(), false),
             "a closed prompt does not update"
         );
     }

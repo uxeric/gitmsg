@@ -44,22 +44,34 @@ text{font-family:ui-monospace,'JetBrains Mono',SFMono-Regular,Menlo,Consolas,mon
   <text x="56" y="300" font-size="20"><tspan class="hot">❯ </tspan><tspan class="ink">gitmsg</tspan><tspan class="caret hot">▍</tspan></text>
 </g>
 <g class="beat" style="animation-name:a1">
-  <text x="56" y="300" font-size="20"><tspan class="ice">⠋ </tspan><tspan class="dim">Generating</tspan></text>
+  <rect x="56" y="280" width="92" height="28" rx="4" fill="#ff2a6d"/>
+  <text x="68" y="300" fill="#07060f" font-size="16" font-weight="700">gitmsg</text>
+  <text x="164" y="300" font-size="20"><tspan class="ice">⠋ </tspan><tspan class="dim">Generating</tspan></text>
 </g>
 <g class="beat" style="animation-name:a2">
-  <text x="56" y="300" font-size="20"><tspan class="ice">⠙ </tspan><tspan class="dim">Generating</tspan></text>
+  <rect x="56" y="280" width="92" height="28" rx="4" fill="#ff2a6d"/>
+  <text x="68" y="300" fill="#07060f" font-size="16" font-weight="700">gitmsg</text>
+  <text x="164" y="300" font-size="20"><tspan class="ice">⠙ </tspan><tspan class="dim">Generating</tspan></text>
 </g>
 <g class="beat" style="animation-name:a3">
-  <text x="56" y="300" font-size="20"><tspan class="ice">⠹ </tspan><tspan class="dim">Generating</tspan></text>
+  <rect x="56" y="280" width="92" height="28" rx="4" fill="#ff2a6d"/>
+  <text x="68" y="300" fill="#07060f" font-size="16" font-weight="700">gitmsg</text>
+  <text x="164" y="300" font-size="20"><tspan class="ice">⠹ </tspan><tspan class="dim">Generating</tspan></text>
 </g>
 <g class="beat" style="animation-name:a4">
-  <text x="56" y="300" font-size="20"><tspan class="ice">⠸ </tspan><tspan class="dim">Generating</tspan></text>
+  <rect x="56" y="280" width="92" height="28" rx="4" fill="#ff2a6d"/>
+  <text x="68" y="300" fill="#07060f" font-size="16" font-weight="700">gitmsg</text>
+  <text x="164" y="300" font-size="20"><tspan class="ice">⠸ </tspan><tspan class="dim">Generating</tspan></text>
 </g>
 <g class="beat" style="animation-name:a5">
-  <text x="56" y="300" font-size="20"><tspan class="ice">⠼ </tspan><tspan class="dim">Generating</tspan></text>
+  <rect x="56" y="280" width="92" height="28" rx="4" fill="#ff2a6d"/>
+  <text x="68" y="300" fill="#07060f" font-size="16" font-weight="700">gitmsg</text>
+  <text x="164" y="300" font-size="20"><tspan class="ice">⠼ </tspan><tspan class="dim">Generating</tspan></text>
 </g>
 <g class="beat" style="animation-name:a6">
-  <text x="56" y="300" font-size="20"><tspan class="ice">⠴ </tspan><tspan class="dim">Generating</tspan></text>
+  <rect x="56" y="280" width="92" height="28" rx="4" fill="#ff2a6d"/>
+  <text x="68" y="300" fill="#07060f" font-size="16" font-weight="700">gitmsg</text>
+  <text x="164" y="300" font-size="20"><tspan class="ice">⠴ </tspan><tspan class="dim">Generating</tspan></text>
 </g>
 <g class="beat a7" style="animation-name:a7">
   <text x="56" y="300" font-size="18"><tspan class="hot">❯ </tspan><tspan class="ink">git commit -m "</tspan><tspan class="amber">Adds</tspan><tspan class="ink"> farewell </tspan><tspan class="ice">&amp;</tspan><tspan class="ink"> updates the greeting"</tspan><tspan class="caret hot">▍</tspan></text>

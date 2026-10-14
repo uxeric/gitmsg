@@ -2,6 +2,7 @@ mod auth;
 mod grok;
 mod spinner;
 mod staged;
+mod style;
 mod subject;
 mod typeout;
 mod update;
@@ -13,7 +14,7 @@ fn main() -> ExitCode {
     match run() {
         Ok(()) => ExitCode::SUCCESS,
         Err(error) => {
-            eprintln!("gitmsg: {error}");
+            eprintln!("{}", style::failure(&error, style::stderr_color()));
             ExitCode::from(1)
         }
     }
@@ -28,7 +29,10 @@ fn run() -> Result<(), String> {
     if args.version {
         let rev =
             update::installed_rev().unwrap_or_else(|| "not installed by install.sh".to_string());
-        println!("gitmsg {} ({rev})", env!("CARGO_PKG_VERSION"));
+        println!(
+            "{}",
+            style::version_line(env!("CARGO_PKG_VERSION"), &rev, style::stdout_color())
+        );
         return Ok(());
     }
     if args.update {
